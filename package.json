@@ -1,6 +1,6 @@
 {
   "name": "migrate-wordpress",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "scripts": {
     "cleanse": "node scripts/perform-cleanse.js",
     "migrate": "node scripts/perform-migration.js"

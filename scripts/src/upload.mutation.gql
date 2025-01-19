@@ -1,21 +1,15 @@
-mutation createPublicationStory(
-  $input: CreateStoryInput!,
-  $hideFromHashnodeFeed: Boolean,
-  $publicationId: String!
-) {
-  createPublicationStory(
-    input: $input,
-    hideFromHashnodeFeed: $hideFromHashnodeFeed,
-    publicationId: $publicationId
-  ) {
-    success
-    code
-    message
+mutation PublishPost($input: PublishPostInput!) {
+  publishPost(input: $input) {
     post {
-      cuid
       slug
       title
-      contentMarkdown
+      content {
+        markdown
+      }
+      publishedAt
+      preferences {
+        isDelisted
+      }
     }
   }
 }
