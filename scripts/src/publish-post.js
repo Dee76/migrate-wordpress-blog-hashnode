@@ -4,7 +4,7 @@ const Fs = require('fs')
 const Path = require('path')
 const { GraphQLClient } = require('graphql-request')
 
-const client = new GraphQLClient('https://api.hashnode.com', {
+const client = new GraphQLClient('https://gql.hashnode.com', {
   headers: {
     Authorization: process.env.HASHNODE_API_KEY
   }
@@ -17,18 +17,18 @@ const query = Fs.readFileSync(
 
 const publishPost = (post) => {
   const variables = {
-    hideFromHashnodeFeed: true,
-    publicationId: process.env.HASHNODE_PUBLICATION_ID,
     input: {
       title: post.title,
+      publicationId: process.env.HASHNODE_PUBLICATION_ID,
       contentMarkdown: post.content,
-      isRepublished: {
-        originalArticleURL: post.url,
-      },
-      tags: []
+      publishedAt: post.date,
+      slug: post.slug,
+      originalArticleURL: post.url,
+      settings: {
+        delisted: true
+      }
     }
   }
-
 
   return client.request(query, variables)
     .then((data) => {
